@@ -39,8 +39,8 @@ channels:
 dependencies:
   - ...
   - pip:
-		# - -e git+http://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
-		# - -e git+http://github.com/openai/CLIP.git@main#egg=clip
+    # - -e git+http://github.com/CompVis/taming-transformers.git@master#egg=taming-transformers
+    # - -e git+http://github.com/openai/CLIP.git@main#egg=clip
 ```
 
 接下来需要为模型提供预训练参数，该工作可以在梯子上下载预训练参数集来完成，虽然它比较大（经过剪枝后仍然达到了 7.2G 的规模），但部署过程相对简单，通过软链接链接到相应位置即可
