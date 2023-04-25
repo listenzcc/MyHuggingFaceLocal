@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hugging face models in local</title>
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script> -->
+    <!-- <script src="https://d3js.org/d3.v7.min.js"></script> -->
+
+    <link href="static/bootstrap.v5.3.0-alpha1.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="static/bootstrap.bundle.v5.3.0-alpha1.min.js" crossorigin="anonymous"></script>
+    <script src="static/d3.v7.min.js"></script>
+
+    <style>
+        .img-thumbnail {
+            max-width: 100px;
+        }
+
+        textarea {
+            min-width: 20em !important;
+        }
+
+        body {
+            font-family: ui-monospace
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>Hugging face models in local</h1>
+    </div>
+
+    <div class="container-fluid">
+        <div>
+            <ul class="nav nav-pills nav-fill gap-2 p-1 small bg-primary rounded-5 shadow-sm" id="pillNav2"
+                role="tablist"
+                style="--bs-nav-link-color: var(--bs-white); --bs-nav-pills-link-active-color: var(--bs-primary); --bs-nav-pills-link-active-bg: var(--bs-white);">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active rounded-5" id="txt2img-tab" data-bs-toggle="tab" type="button"
+                        role="tab" aria-selected="true">Txt2img</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link rounded-5" id="img2img-tab" data-bs-toggle="tab" type="button" role="tab"
+                        aria-selected="false">Img2img</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link rounded-5" id="contact-tab2" data-bs-toggle="tab" type="button" role="tab"
+                        aria-selected="false">Contact</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- The img2img section -->
+    <div class="container-fluid" id="img2img-section" style="display: none">
+        <div class="container-fluid mx-auto p-2">
+            <h2>The img2img section</h2>
+        </div>
+
+        <!-- Prompt -->
+        <div class="container-fluid mx-auto p-2 card">
+            <div class="card-header">
+                <label class="form-label">Prompt section</label>
+            </div>
+            <div class="input-group mb-3 card-body">
+                <textarea class="form-control" placeholder="Prompt" aria-label="Prompt" aria-describedby="button-addon2"
+                    id="img2img-prompt-textarea"></textarea>
+                <button class="btn btn-outline-secondary " type="button" id="img2img-button-submit-prompt">Submit
+                    prompt</button>
+                <button class="btn btn-outline-secondary " type="button" id="img2img-button-clear-prompt">Clear
+                    prompt</button>
+            </div>
+        </div>
+
+        <!-- Images -->
+        <div class="container-fluid mx-auto p-2 card">
+            <div class="card-header">
+                <label class="form-label">Image section</label>
+            </div>
+            <div class="mx-auto p-2 card-body">
+                <p id="img2img-status-bar" class="container-fluid mx-auto p-2 placeholder-glow"></p>
+                <picture>
+                    <img id="img2img-main-img" src="https://source.unsplash.com/random/512x512/?city,night"
+                        class="img-fluid" alt="img-alt">
+                    <div id="img2img-thumbnail-imgs-container" class="container-fluid mx-auto p-2">
+                        <img src="https://source.unsplash.com/random/100x100/?city,night"
+                            class="img-fluid img-thumbnail" alt="img-alt">
+                        <img src="https://source.unsplash.com/random/200x200/?sport" class="img-fluid img-thumbnail"
+                            alt="img-alt">
+                    </div>
+                </picture>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- The txt2img section -->
+    <div class="container-fluid" id="txt2img-section">
+        <div class="container-fluid mx-auto p-2">
+            <h2>The txt2img section</h2>
+        </div>
+
+        <!-- History -->
+        <div class="container-fluid mx-auto p-2 card">
+            <div class="card-header">
+                <label class="form-label">History section</label>
+            </div>
+            <div class="input-group mb-3 card-body">
+                <select id="txt2img-history-select" class="form-select" aria-label="Default select example">
+                </select>
+                <button class="btn btn-outline-secondary " type="button" id="txt2img-button-refresh-history">Refresh
+                    history</button>
+            </div>
+        </div>
+
+        <!-- Prompt -->
+        <div class="container-fluid mx-auto p-2 card">
+            <div class="card-header">
+                <label class="form-label">Prompt section</label>
+            </div>
+            <div class="input-group mb-3 card-body">
+                <textarea class="form-control" placeholder="Prompt" aria-label="Prompt" aria-describedby="button-addon2"
+                    id="txt2img-prompt-textarea"></textarea>
+                <button class="btn btn-outline-secondary " type="button" id="txt2img-button-submit-prompt">Submit
+                    prompt</button>
+                <button class="btn btn-outline-secondary " type="button" id="txt2img-button-clear-prompt">Clear
+                    prompt</button>
+            </div>
+        </div>
+
+        <!-- Images -->
+        <div class="container-fluid mx-auto p-2 card">
+            <div class="card-header">
+                <label class="form-label">Image section</label>
+            </div>
+            <div class="mx-auto p-2 card-body">
+                <p id="txt2img-status-bar" class="container-fluid mx-auto p-2 placeholder-glow"></p>
+                <picture>
+                    <img id="txt2img-main-img" src="https://source.unsplash.com/random/512x512/?city,night"
+                        class="img-fluid" alt="img-alt">
+
+                    <div id="txt2img-thumbnail-imgs-container" class="container-fluid mx-auto p-2">
+                        <img src="https://source.unsplash.com/random/100x100/?city,night"
+                            class="img-fluid img-thumbnail" alt="img-alt">
+                        <img src="https://source.unsplash.com/random/200x200/?sport" class="img-fluid img-thumbnail"
+                            alt="img-alt">
+                    </div>
+                </picture>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <script src="src/global.js"></script>
+        <script src="src/txt2img.js"></script>
+        <script src="src/img2img.js"></script>
+    </div>
+
+</body>
+
+</html>
